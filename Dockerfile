@@ -12,7 +12,9 @@ RUN apt-get update && apt-get -y install cmake && \
   KERNELDIR=$ROOTFS/lib/modules/$KERNEL_VERSION-boot2docker/build make && \
   DESTDIR=$ROOTFS KERNELDIR=$ROOTFS/lib/modules/$KERNEL_VERSION-boot2docker/build make install && \
   cp driver/sysdig-probe.ko $ROOTFS/lib/modules/$KERNEL_VERSION-boot2docker/extra && \
-  depmod -a -b $ROOTFS $KERNEL_VERSION-boot2docker
+  depmod -a -b $ROOTFS $KERNEL_VERSION-boot2docker && \
+  chmod u+s $ROOTFS/usr/local/bin/sysdig && \
+  chmod u+s $ROOTFS/usr/local/bin/csysdig
 
 RUN /make_iso.sh
 
