@@ -2,13 +2,13 @@ FROM boot2docker/boot2docker
 
 # Build sysdig
 ENV SYSDIG_REPO https://github.com/draios/sysdig.git
-ENV SYSDIG_TAG 0.1.102
+ENV SYSDIG_TAG 0.1.103
 
 RUN apt-get update && apt-get -y install cmake && \
   git clone --branch "$SYSDIG_TAG" "$SYSDIG_REPO"  /sysdig && \
   mkdir /sysdig/build && \
   cd /sysdig/build && \
-  cmake .. && \
+  cmake -DCMAKE_BUILD_TYPE=Release -DSYSDIG_VERSION=$SYSDIG_TAG .. && \
   KERNELDIR=$ROOTFS/lib/modules/$KERNEL_VERSION-boot2docker/build make && \
   DESTDIR=$ROOTFS KERNELDIR=$ROOTFS/lib/modules/$KERNEL_VERSION-boot2docker/build make install && \
   cp driver/sysdig-probe.ko $ROOTFS/lib/modules/$KERNEL_VERSION-boot2docker/extra && \
