@@ -2,7 +2,7 @@ FROM boot2docker/boot2docker
 
 # Build sysdig
 ENV SYSDIG_REPO https://github.com/draios/sysdig.git
-ENV SYSDIG_TAG 0.3.0
+ENV SYSDIG_TAG 0.4.0
 
 RUN apt-get update && apt-get -y install cmake && \
   git clone --branch "$SYSDIG_TAG" "$SYSDIG_REPO"  /sysdig && \
