@@ -4,8 +4,12 @@ FROM boot2docker/boot2docker
 ENV SYSDIG_REPO https://github.com/draios/sysdig.git
 ENV SYSDIG_TAG 0.4.0
 
-RUN apt-get update && apt-get -y install cmake && \
-  git clone --branch "$SYSDIG_TAG" "$SYSDIG_REPO"  /sysdig && \
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get update && \
+    apt-get install -y --no-install-recommends cmake && \
+    apt-get autoremove
+
+RUN git clone --depth 1 --branch "$SYSDIG_TAG" "$SYSDIG_REPO"  /sysdig && \
   mkdir /sysdig/build
 
 WORKDIR /sysdig/build
