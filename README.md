@@ -15,6 +15,15 @@ Now that its up and running, you can ssh in and run sysdig/csysdig
     $ docker-machine ssh dev
     docker@boot2docker:~$ csysdig
 
+## Building local iso
+
+docker build -t boot2docker-sysdig .
+docker run boot2docker-sysdig > boot2docker.iso
+
+## Creating docker-machine from local iso
+
+    $ docker-machine create -d drivername --drivername-boot2docker-url PATH/TO/boot2docker-sysdig.iso dev
+
 ### Notice
 
 By default on Mac, `TERM` is set to `xterm-256color` which doesn't work with other linux systems.
